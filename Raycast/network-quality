@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Required parameters:
+# @raycast.schemaVersion 1
+# @raycast.title Network Quality
+# @raycast.mode fullOutput
+#
+# Optional parameters:
+# @raycast.icon 🌎
+# @raycast.currentDirectoryPath ~
+# @raycast.needsConfirmation false
+#
+# Documentation:
+# @raycast.description Measures the speed of the network you're currently connected to.
+# @raycast.author Bruno Delgado
+# @raycast.authorURL https://twitter.com/_brunodelgado
+
+result=$(networkQuality -v)
+
+download=$(echo "$result" | grep "Download capacity" | awk -F": " '{print $2}')
+upload=$(echo "$result" | grep "Upload capacity" | awk -F": " '{print $2}')
+
+echo "⬇️ ${download}  ⬆️ ${upload}"
